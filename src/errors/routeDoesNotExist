@@ -1,0 +1,5 @@
+function routeDoesNotExist(request, response, next) {
+  next({ status: 404, message: `Route does not exist: ${request.originalUrl}` });
+}
+
+module.exports = routeDoesNotExist;
