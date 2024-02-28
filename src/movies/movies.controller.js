@@ -29,5 +29,5 @@ async function read(req, res, next) {
 module.exports = {
     list,
     listShowingMovies,
-    read: [asyncErrorBoundary(movieExists), read]
+    read: [asyncErrorBoundary(movieExists), read],
 }
