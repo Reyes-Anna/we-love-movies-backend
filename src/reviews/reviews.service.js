@@ -16,7 +16,6 @@ function update(updatedReview) {
     .select("*")
     .where({ review_id: updatedReview.review_id})
     .update(updatedReview, "*")
-    .then((updatedRecords) => updatedRecords[0])
 }
 
 //DELETE reviews/:reviewId

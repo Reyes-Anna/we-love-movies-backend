@@ -13,7 +13,7 @@ exports.up = function(knex) {
     .foreign("theater_id")
     .references("theater_id")
     .inTable("theaters")
-    .onDelete("cascade")
+    .onDelete("cascade");
     table.boolean("is_showing");
   })
 };

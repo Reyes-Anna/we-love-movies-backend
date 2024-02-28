@@ -4,14 +4,14 @@ const controller = require("./movies.controller")
 const theatersRouter = require("../theaters/theaters.router")
 const reviewsRouter = require("../reviews/reviews.router")
 
-router.route("/:movieId/reviews").get(reviewsRouter).all(methodNotAllowed)
-router.route("/:movieId/theaters").get(theatersRouter).all(methodNotAllowed)
+router.use("/:movieId/reviews", reviewsRouter)
+router.use("/:movieId/theaters", theatersRouter)
 
 router.route("/:movieId")
 .get(controller.read)
 .all(methodNotAllowed)
 
-router.route("/?is_showing=true")
+router.route("/is_showing")
 .get(controller.listShowingMovies)
 .all(methodNotAllowed)
 

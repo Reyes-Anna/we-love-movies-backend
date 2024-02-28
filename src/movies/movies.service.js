@@ -8,11 +8,9 @@ function list() {
 
 //GET/movies?is_showing=true
 function listShowingMovies() {
-    return knex("movies as m")
-    .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
-    .join("theaters as t", "mt.theater_id", "t.theater_id")
+    return knex("movies_theaters")
     .select("*")
-    .where({is_showing: true})
+    .where({is_showing})
     .first()
 }
 
@@ -20,7 +18,7 @@ function listShowingMovies() {
 async function read(movie_Id) {
     return knex("movies")
     .select("*")
-    .where({"movie_id": movie_Id})
+    .where({movie_Id})
     .first()
 }
 
