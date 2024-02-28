@@ -1,4 +1,16 @@
 const knex = require("../db/connection")
+const mapProperties = require("../utils/map-properties")
+
+const addCritic = mapProperties({
+    critic_id: "critic.critic_id",
+    preferred_name: "critic.preferred_name",
+    surname: "critic.surname",
+    organization_name: "critic.organization_name",
+    created_at: "critic.created_at",
+    updated_at: "critic.updated_at",
+})
+
+
 
 //GET /reviews
 function list() {
@@ -8,6 +20,15 @@ function list() {
 function read(review_id) {
     return knex("reviews").select("*").where({review_id}).first()
 }
+
+function readReviewsForMovie(movie_id) {
+    return knex("reviews as r")
+    .join("critics as c", "r.critic_id", "c.critic_id")
+    .select("*")
+    .where({"r.movie_id": movie_id})
+    .then(reviews => reviews.map(review => addCritic(review)))
+}
+
 //PUT reviews/reviewId
 //gives 404 if ID is incorrect
 //response included review record and critic info set to the critic property
@@ -16,9 +37,9 @@ function update(updatedReview) {
     .join("movies as m", "m.movie_id", "r.movie_id")
     .join("critic as c", "r.critic_id", "c.critic_id")
     .distinct("m.movie_id")
-    .select("c.*","r.*")
+    .select("*")
     .where({ review_id: updatedReview.review_id})
-    .update(updatedReview, "c.*", "r.*")
+    .update(updatedReview, "c.*", "r.")
 
 }
 
@@ -32,6 +53,7 @@ function destroy(review_id) {
 module.exports = {
     list,
     read,
+    readReviewsForMovie,
     update,
     delete: destroy,
 }

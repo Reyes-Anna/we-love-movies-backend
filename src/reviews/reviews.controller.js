@@ -14,7 +14,14 @@ async function reviewExists(req, res, next) {
 }
 
 async function list(req, res, next) {
-    res.json({ data: await service.list() })
+    const movie_id = Number(req.params.movieId)
+    let data = []
+    if(movie_id) {
+        data = await service.readReviewsForMovie(movie_id)
+    } else {
+        data = await service.list()
+    }
+    res.json({ data })
     }
 
 async function read(req, res, next) {
