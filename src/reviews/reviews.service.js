@@ -12,10 +12,14 @@ function read(review_id) {
 //gives 404 if ID is incorrect
 //response included review record and critic info set to the critic property
 function update(updatedReview) {
-    return knex("reviews")
-    .select("*")
+    return knex("reviews as r")
+    .join("movies as m", "m.movie_id", "r.movie_id")
+    .join("critic as c", "r.critic_id", "c.critic_id")
+    .distinct("m.movie_id")
+    .select("c.*","r.*")
     .where({ review_id: updatedReview.review_id})
-    .update(updatedReview, "*")
+    .update(updatedReview, "c.*", "r.*")
+
 }
 
 //DELETE reviews/:reviewId

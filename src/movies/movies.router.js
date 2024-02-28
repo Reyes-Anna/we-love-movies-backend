@@ -11,10 +11,6 @@ router.route("/:movieId")
 .get(controller.read)
 .all(methodNotAllowed)
 
-router.route("/is_showing")
-.get(controller.listShowingMovies)
-.all(methodNotAllowed)
-
 router.route("/")
 .get(controller.list)
 .all(methodNotAllowed)

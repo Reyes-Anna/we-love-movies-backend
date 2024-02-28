@@ -8,10 +8,11 @@ function list() {
 
 //GET/movies?is_showing=true
 function listShowingMovies() {
-    return knex("movies_theaters")
-    .select("*")
-    .where({is_showing})
-    .first()
+    return knex("movies as m")
+    .join("movies_theaters as mt", "m.movie_id", "mt.movie_id")
+    .where({"mt.is_showing": true})
+    .distinct("m.movie_id")
+    .select("m.*")
 }
 
 // GET/movies/:movieId
