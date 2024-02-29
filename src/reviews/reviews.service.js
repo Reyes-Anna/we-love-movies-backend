@@ -2,12 +2,9 @@ const knex = require("../db/connection")
 const mapProperties = require("../utils/map-properties")
 
 const addCritic = mapProperties({
-    critic_id: "critic.critic_id",
     preferred_name: "critic.preferred_name",
     surname: "critic.surname",
-    organization_name: "critic.organization_name",
-    c_created_at: "critic.created_at",
-    c_updated_at: "critic.updated_at",
+    organization_name: "critic.organization_name", 
 })
 
 
@@ -32,8 +29,8 @@ function readReviewsForMovie(movie_id) {
 //PUT reviews/reviewId
 //gives 404 if ID is incorrect
 //response included review record and critic info set to the critic property
-function update(updatedReview) {
-    knex("reviews")
+async function update(updatedReview) {
+    await knex("reviews")
     .select("*")
     .where({ review_id: updatedReview.review_id})
     .update(updatedReview, "*")
@@ -42,12 +39,12 @@ function update(updatedReview) {
     .join("critics as c", "c.critic_id", "r.critic_id")
     .select(
         "r.*",
-        "c.critic_id as c_critic_id",
+        "c.critic_id",
         "c.preferred_name",
         "c.surname",
         "c.organization_name",
-        "c.created_at as c_created_at",
-        "c.updated_at as c_updated_at",
+        "c.created_at",
+        "c.updated_at",
     )
     .where({ review_id: updatedReview.review_id})
     .first()

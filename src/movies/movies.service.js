@@ -16,10 +16,10 @@ function listShowingMovies() {
 }
 
 // GET/movies/:movieId
-async function read(movie_Id) {
+async function read(movie_id) {
     return knex("movies")
     .select("*")
-    .where({movie_Id})
+    .where({movie_id})
     .first()
 }
 
