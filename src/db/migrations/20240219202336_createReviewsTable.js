@@ -16,6 +16,7 @@ exports.up = function(knex) {
     .references("movie_id")
     .inTable("movies")
     .onDelete("cascade");
+    table.timestamp(true, true);
   })
 };
 

@@ -6,8 +6,8 @@ const addCritic = mapProperties({
     preferred_name: "critic.preferred_name",
     surname: "critic.surname",
     organization_name: "critic.organization_name",
-    created_at: "critic.created_at",
-    updated_at: "critic.updated_at",
+    c_created_at: "critic.created_at",
+    c_updated_at: "critic.updated_at",
 })
 
 
